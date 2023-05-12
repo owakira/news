@@ -1,6 +1,5 @@
 package com.github.owakira.news.model.response;
 
-import com.github.owakira.news.model.domain.NewsSource;
 import com.github.owakira.news.model.domain.NewsTopic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
