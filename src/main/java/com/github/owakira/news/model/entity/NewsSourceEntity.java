@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(
         name = NewsSourceEntity.TABLE_NAME,
@@ -29,4 +30,7 @@ public class NewsSourceEntity {
 
     @Column(name = NAME_COLUMN_NAME, nullable = false, length = NAME_COLUMN_LENGTH)
     private String name;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<NewsEntity> news;
 }
