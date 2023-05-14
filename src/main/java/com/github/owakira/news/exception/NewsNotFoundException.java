@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NewsTopicNotFoundException extends RuntimeException {
-    public NewsTopicNotFoundException() {
-        super("News topic not found");
+public class NewsNotFoundException extends RuntimeException {
+    public NewsNotFoundException() {
+        super("News not found");
     }
 }
