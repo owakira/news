@@ -7,7 +7,6 @@ import com.github.owakira.news.model.domain.NewsSource;
 import com.github.owakira.news.model.dto.CreateNewsDTO;
 import com.github.owakira.news.model.dto.UpdateNewsDTO;
 import com.github.owakira.news.model.entity.NewsEntity;
-import com.github.owakira.news.model.entity.NewsSourceEntity;
 import com.github.owakira.news.model.entity.NewsTopicEntity;
 import com.github.owakira.news.repository.NewsRepository;
 import com.github.owakira.news.repository.NewsSourceRepository;
@@ -74,7 +73,7 @@ public class NewsServiceImpl implements NewsService {
             newsEntity.setTitle(dto.getTitle());
         }
 
-        if (dto.getTopicIds() != null ) {
+        if (dto.getTopicIds() != null) {
             var topicEntities = findTopics(dto.getTopicIds());
             newsEntity.setTopics(topicEntities);
         }
@@ -126,7 +125,7 @@ public class NewsServiceImpl implements NewsService {
     public Map<NewsSource, Integer> getNewsCountBySource() {
         List<NewsEntity> newsList = newsRepository.findAll();
         Map<NewsSource, Integer> newsCountBySource = new HashMap<>();
-        for (var news: newsList) {
+        for (var news : newsList) {
             var newsSource = NewsSource.fromEntity(news.getSource());
             newsCountBySource.put(newsSource, newsCountBySource.getOrDefault(newsSource, 0) + 1);
         }
