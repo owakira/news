@@ -3,9 +3,11 @@ package com.github.owakira.news.service.impl;
 import com.github.owakira.news.exception.NewsSourceNotFoundException;
 import com.github.owakira.news.exception.NewsTopicsNotFoundException;
 import com.github.owakira.news.model.domain.News;
+import com.github.owakira.news.model.domain.NewsSource;
 import com.github.owakira.news.model.dto.CreateNewsDTO;
 import com.github.owakira.news.model.dto.UpdateNewsDTO;
 import com.github.owakira.news.model.entity.NewsEntity;
+import com.github.owakira.news.model.entity.NewsSourceEntity;
 import com.github.owakira.news.model.entity.NewsTopicEntity;
 import com.github.owakira.news.repository.NewsRepository;
 import com.github.owakira.news.repository.NewsSourceRepository;
@@ -19,9 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -121,6 +121,16 @@ public class NewsServiceImpl implements NewsService {
         return newsPage.getContent().stream()
                 .map(News::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public Map<NewsSource, Integer> getNewsCountBySource() {
+        List<NewsEntity> newsList = newsRepository.findAll();
+        Map<NewsSource, Integer> newsCountBySource = new HashMap<>();
+        for (var news: newsList) {
+            var newsSource = NewsSource.fromEntity(news.getSource());
+            newsCountBySource.put(newsSource, newsCountBySource.getOrDefault(newsSource, 0) + 1);
+        }
+        return newsCountBySource;
     }
 
     private List<NewsTopicEntity> findTopics(List<Long> topicIds) {

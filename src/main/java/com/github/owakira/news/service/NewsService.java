@@ -1,10 +1,12 @@
 package com.github.owakira.news.service;
 
 import com.github.owakira.news.model.domain.News;
+import com.github.owakira.news.model.domain.NewsSource;
 import com.github.owakira.news.model.dto.CreateNewsDTO;
 import com.github.owakira.news.model.dto.UpdateNewsDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface NewsService {
@@ -21,4 +23,6 @@ public interface NewsService {
     List<News> getNewsBySourceId(Long sourceId, int page, int pageSize);
 
     List<News> getNewsByTopicId(Long topicId, int page, int pageSize);
+
+    Map<NewsSource, Integer> getNewsCountBySource();
 }
