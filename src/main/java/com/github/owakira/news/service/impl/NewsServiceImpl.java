@@ -15,12 +15,14 @@ import com.github.owakira.news.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -96,7 +98,7 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getAllNews(int page, int pageSize) {
         log.info("Get all news: [page={}, pageSize={}]", page, pageSize);
         var pageable = PageRequest.of(page, pageSize);
-        Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
+        var newsPage = newsRepository.findAll(pageable);
         return newsPage.getContent().stream()
                 .map(News::fromEntity)
                 .collect(Collectors.toList());
@@ -123,8 +125,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     public Map<NewsSource, Integer> getNewsCountBySource() {
-        List<NewsEntity> newsList = newsRepository.findAll();
-        Map<NewsSource, Integer> newsCountBySource = new HashMap<>();
+        var newsList = newsRepository.findAll();
+        var newsCountBySource = new HashMap<NewsSource, Integer>();
         for (var news : newsList) {
             var newsSource = NewsSource.fromEntity(news.getSource());
             newsCountBySource.put(newsSource, newsCountBySource.getOrDefault(newsSource, 0) + 1);
@@ -135,11 +137,11 @@ public class NewsServiceImpl implements NewsService {
     private List<NewsTopicEntity> findTopics(List<Long> topicIds) {
         var topics = newsTopicRepository.findAllById(topicIds);
         if (topics.size() != topicIds.size()) {
-            Set<Long> foundTopicIds = topics.stream()
+            var foundTopicIds = topics.stream()
                     .map(NewsTopicEntity::getId)
                     .collect(Collectors.toSet());
 
-            Set<Long> missingTopicIds = topicIds.stream()
+            var missingTopicIds = topicIds.stream()
                     .filter(id -> !foundTopicIds.contains(id))
                     .collect(Collectors.toSet());
             log.warn("News topics not found: [missingTopicIds={}]", missingTopicIds);
