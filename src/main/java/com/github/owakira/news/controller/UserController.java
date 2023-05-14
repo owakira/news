@@ -25,10 +25,11 @@ public class UserController {
 
     @PostMapping(CREATE_USER_ENDPOINT)
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
-        log.info("Create user. request={}", request);
+        log.info("Create user: [request={}]", request);
+
         var dto = new CreateUserDTO(request.getEmail(), request.getUsername(), request.getPassword());
         var user = userService.createUser(dto);
-        log.info("User successfully created. user={}", user);
+        log.info("User successfully created: [user={}]", user);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -37,7 +38,7 @@ public class UserController {
 
     @GetMapping(FIND_USER_BY_ID_ENDPOINT)
     public ResponseEntity<?> findUserById(@PathVariable Long id) {
-        log.info("Find user by id. id={}", id);
+        log.info("Find user by id: [id={}]", id);
 
         var user = userService.findUserById(id)
                 .orElseThrow(() -> {
@@ -45,7 +46,7 @@ public class UserController {
                     return new UserNotFoundException();
                 });
 
-        log.info("User successfully find. user={}", user);
+        log.info("User successfully find: [user={}]", user);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(UserResponse.fromDomain(user));
