@@ -22,3 +22,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     enabled: true
+statistics:
+  file-start-name: news-statictics
+  file-format: .txt
+  file-save-path: ./
