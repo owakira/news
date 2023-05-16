@@ -14,10 +14,11 @@ import java.util.Map;
 public class LocalTxtFileService implements FileService {
     @Value("${statistics.file-save-path}")
     private String savePath;
+    private final static String FILE_FORMAT = ".txt";
 
     @Override
     public void saveFile(String filename, Map<String, String> data) throws IOException {
-        try (FileWriter writer = new FileWriter(savePath + filename)) {
+        try (FileWriter writer = new FileWriter(savePath + filename + FILE_FORMAT)) {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 writer.write(entry.getKey() + ": " + entry.getValue() + "\n");
             }
