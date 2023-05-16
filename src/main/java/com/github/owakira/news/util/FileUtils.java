@@ -1,4 +1,4 @@
-package com.github.owakira.news.utils;
+package com.github.owakira.news.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

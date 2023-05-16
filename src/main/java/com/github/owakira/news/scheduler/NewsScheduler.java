@@ -2,7 +2,7 @@ package com.github.owakira.news.scheduler;
 
 import com.github.owakira.news.service.FileService;
 import com.github.owakira.news.service.NewsService;
-import com.github.owakira.news.utils.FileUtils;
+import com.github.owakira.news.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
