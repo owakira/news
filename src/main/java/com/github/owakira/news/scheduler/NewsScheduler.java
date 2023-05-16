@@ -22,8 +22,6 @@ public class NewsScheduler {
     @Value("${statistics.file-start-name}")
     private String fileStartName;
 
-    @Value("${statistics.file-format}")
-    private String fileFormat;
 
     private final static String CRON = "0 0 0 * * ?";
 
@@ -31,17 +29,17 @@ public class NewsScheduler {
     public void collectAnalytics() {
         log.info("Collect analytics");
 
-        var count = newsService.getNewsCountBySource();
-        log.info("Found news by source: [news={}]", count);
+        var news = newsService.getNewsCountBySource();
+        log.info("Found news by source: [news={}]", news);
 
-        var counterAdapter = new HashMap<String, String>();
-        count.forEach((source, value) -> counterAdapter.put(source.getId().toString(), value.toString()));
+        var count = new HashMap<String, String>();
+        news.forEach((source, value) -> count.put(source.getId().toString(), value.toString()));
 
-        var filename = FileUtils.generateUniqueFilename(fileStartName, fileFormat);
+        var filename = FileUtils.generateUniqueFilename(fileStartName);
         log.info("Save analytics: [filename={}]", filename);
 
         try {
-            fileService.saveFile(filename, counterAdapter);
+            fileService.saveFile(filename, count);
             log.info("File saved successfully: [filename={}]", filename);
         } catch (IOException e) {
             log.error(e);
