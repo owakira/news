@@ -24,5 +24,4 @@ spring:
     enabled: true
 statistics:
   file-start-name: news-statictics
-  file-format: .txt
   file-save-path: ./
