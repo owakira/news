@@ -22,6 +22,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     enabled: true
+security:
+  password-strength: 12
+  jwt-expires-in: 30
+  jwt-secret-key: 0JLRiyDQvdCw0YjQu9C4INC/0LDRgdGF0LDQu9C60YMsINGPINCy0LDQvNC4INCz0L7RgNC20YPRgdGM
 statistics:
   file-start-name: news-statictics
   file-save-path: ./
