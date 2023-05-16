@@ -25,7 +25,7 @@ public class NewsScheduler {
 
     private final static String CRON = "0 0 0 * * ?";
 
-    @Scheduled(fixedDelay = 60_000)
+    @Scheduled(cron = CRON)
     public void collectAnalytics() {
         log.info("Collect analytics");
 
