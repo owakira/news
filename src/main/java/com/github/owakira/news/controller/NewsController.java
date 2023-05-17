@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,7 +34,7 @@ public class NewsController {
     public final static String GET_NEWS_BY_TOPIC_ID_ENDPOINT = "/by-topic/{topicId}";
 
     @PostMapping(CREATE_NEWS_ENDPOINT)
-    public ResponseEntity<?> createNews(@RequestBody CreateNewsRequest request) {
+    public ResponseEntity<?> createNews(@Valid @RequestBody CreateNewsRequest request) {
         log.info("Create news: [request={}]", request);
 
         var dto = new CreateNewsDTO(
@@ -118,7 +119,7 @@ public class NewsController {
     }
 
     @PutMapping(UPDATE_NEWS_BY_ID_ENDPOINT)
-    public ResponseEntity<?> updateNewsById(@PathVariable Long id, @RequestBody UpdateNewsRequest request) {
+    public ResponseEntity<?> updateNewsById(@Valid @PathVariable Long id, @RequestBody UpdateNewsRequest request) {
         log.info("Update news by id: [id: {}, request={}]", id, request);
 
         var dto = new UpdateNewsDTO(request.getTitle(), request.getContent(), request.getTopicIds());
