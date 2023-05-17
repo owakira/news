@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,7 +32,7 @@ public class NewsSourceController {
     public final static String DELETE_NEWS_SOURCE_BY_ID_ENDPOINT = "/{id}";
 
     @PostMapping(CREATE_NEWS_SOURCE_ENDPOINT)
-    public ResponseEntity<?> createNewsSource(@RequestBody CreateNewsSourceRequest request) {
+    public ResponseEntity<?> createNewsSource(@Valid @RequestBody CreateNewsSourceRequest request) {
         log.info("Create news source: [request={}]", request);
 
         var newsSource = newsSourceService.createNewsSource(new CreateNewsSourceDTO(request.getName()));
@@ -74,7 +75,7 @@ public class NewsSourceController {
     }
 
     @PutMapping(UPDATE_NEWS_SOURCE_BY_ID_ENDPOINT)
-    public ResponseEntity<?> updateNewsSourceById(@PathVariable Long id, @RequestBody UpdateNewsSourceRequest request) {
+    public ResponseEntity<?> updateNewsSourceById(@PathVariable Long id, @Valid @RequestBody UpdateNewsSourceRequest request) {
         log.info("Update news source by id: [id={}, request={}]", id, request);
 
         var updatedNewsSource = newsSourceService.updateNewsSourceById(id, new UpdateNewsSourceDTO(request.getName()));
