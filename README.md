@@ -58,5 +58,5 @@ I use spring security. Unfortunately, without roles and permissions. In other wo
 ### Part 3: Scheduled statistical task
 I use scheduler with cron. Every day at midnight,file create with statistics. File format: news-statistics-{datetime}-{uuid}.txt
 
-### Part 4: Part 4: Docker Compose File
+### Part 4: Docker Compose File
 I create Dockerfile and docker-compose.yml. My image size ~100mb
